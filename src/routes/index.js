@@ -4,11 +4,11 @@ const router = new Router();
 const systemRouter = require('./system');
 const filesRouter = require('./files');
 const restartRouter = require('./restart');
-const loginRouter = require('./login');
+const authRouter = require('./auth');
 
 router.use('/system', systemRouter);
 router.use('/restart', restartRouter);
 router.use('/files', filesRouter);
-router.use('/auth', loginRouter);
+router.use('/auth', authRouter);
 
 module.exports = router;

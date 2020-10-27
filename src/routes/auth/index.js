@@ -14,7 +14,11 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/me', (req, res) => {
-  res.json();
+  if (req.session.authenticated === true) {
+    res.status(200).json();
+  } else {
+    res.status(400).json();
+  }
 });
 
 module.exports = router;

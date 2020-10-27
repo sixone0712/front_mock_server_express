@@ -54,8 +54,9 @@ app.listen(3100, () => {
 
 function allowUrl(pathname) {
   const urls = [
-    '/servicemanager/api/login',
-    '/servicemanager/api/logout',
+    '/servicemanager/api/auth/login',
+    '/servicemanager/api/auth/logout',
+    '/servicemanager/api/auth/me',
     '/favicon.ico',
   ];
   console.log('pathname', pathname);
