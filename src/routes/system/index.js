@@ -2,6 +2,8 @@ const { Router } = require('express');
 const router = new Router();
 const data = require('../../../data/data');
 
+let flag = false;
+
 router.get('/', async (req, res) => {
   try {
     await new Promise(function (resolve) {
@@ -13,7 +15,13 @@ router.get('/', async (req, res) => {
     console.log(e);
   }
 
-  res.json(data.getDeviceInfo());
+  if (flag) {
+    res.json(data.getDeviceInfo());
+    flag = !flag;
+  } else {
+    res.json(data.getDeviceInfo2());
+    flag = !flag;
+  }
 });
 
 module.exports = router;

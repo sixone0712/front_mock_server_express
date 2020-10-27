@@ -2,8 +2,9 @@ const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 const app = new express();
-
+const cookieParser = require('cookie-parser');
 const apiRouter = require('./routes');
+const expiredTime = 4 * 60 * 60 * 1000;
 
 var options = {
   //https://www.zerocho.com/category/NodeJS/post/5e9bf5b18dcb9c001f36b275
@@ -21,18 +22,21 @@ app.use(
     secret: '@#@$MYSIGN#@$#$',
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60 * 1000 }, // 쿠키의 maxAge를 이용해서 세션 유효기간 설정. 3초
+    cookie: { maxAge: expiredTime }, // 쿠키의 maxAge를 이용해서 세션 유효기간 설정. 3초
+    rolling: true,
   }),
 );
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser()); // cookie 분석 미들웨어 장착!!!
 
 app.use((req, res, next) => {
   console.log('req.originalUrl', req.originalUrl);
   console.log('session', req.session);
   console.log('session.authenticated', req.session.authenticated);
   console.log('now', new Date(Date.now()));
+  console.log('req.cookies', req.cookies);
 
   if (allowUrl(req.originalUrl)) {
     return next();
@@ -40,6 +44,8 @@ app.use((req, res, next) => {
 
   console.log('typeof session.authenticated', typeof req.session.authenticated);
   if (req.session.authenticated === true) {
+    req.session.cookie.expires = new Date(Date.now() + expiredTime);
+    req.session.cookie.maxAge = expiredTime;
     return next();
   }
 
