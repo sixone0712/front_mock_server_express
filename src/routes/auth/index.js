@@ -13,6 +13,11 @@ router.get('/login', (req, res) => {
   }
 });
 
+router.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.status(200).json();
+});
+
 router.get('/me', (req, res) => {
   if (req.session.authenticated === true) {
     res.status(200).json();
