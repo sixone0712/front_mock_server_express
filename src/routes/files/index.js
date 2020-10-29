@@ -27,7 +27,7 @@ let statusCnt = 0;
 router.get('/download/:name?', (req, res) => {
   statusCnt++;
   console.log(statusCnt, statusCnt);
-  if (statusCnt > 2) {
+  if (statusCnt > 10) {
     res.json({
       donwloadId: 'dl20201019',
       status: 'done',
@@ -44,7 +44,7 @@ router.get('/download/:name?', (req, res) => {
 });
 
 router.delete('/download/:name?', (req, res) => {
-  res.body = {};
+  res.json();
 });
 
 router.get('/store/:name', async (req, res) => {
