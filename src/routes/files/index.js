@@ -13,13 +13,15 @@ router.get('/', async (req, res) => {
   });
 
   res.json({
-    lists: data.getFileInfo(device),
+    list: data.getFileInfo(device),
   });
+
+  //res.status(400).send(null);
 });
 
 router.post('/', (req, res) => {
   res.json({
-    downloadId: 'dl20201217',
+    requestNo: 'dl20201217',
   });
 });
 
@@ -29,14 +31,14 @@ router.get('/download/:name?', (req, res) => {
   console.log(statusCnt, statusCnt);
   if (statusCnt > 10) {
     res.json({
-      donwloadId: 'dl20201019',
+      requestNo: 'dl20201019',
       status: 'done',
       url: 'http://localhost:3100/servicemanager/api/files/store/dl20201019',
     });
     statusCnt = 0;
   } else {
     res.json({
-      donwloadId: 'dl20201019',
+      requestNo: 'dl20201019',
       status: 'process',
       url: '',
     });

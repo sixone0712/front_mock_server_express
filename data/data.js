@@ -177,13 +177,13 @@ exports.getDeviceInfo2 = () => {
 exports.getFileInfo = (deviceName) => {
   const response = [];
   const types = [
-    'login',
-    'job',
-    'downloadFile',
-    'process',
-    'fileStatus',
-    'error',
+    'user',
+    'control',
+    'download',
+    'subsystem',
+    'exception',
     'tomcat',
+    'etc',
   ];
 
   for (let type of types) {
